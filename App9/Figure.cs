@@ -67,7 +67,7 @@ namespace App9
 
     internal class Figure : SimpleFigure
     {
-        public MyFig(double x, double y, double wid, double hei) : base(x, y, wid, hei) { }
+        public Figure(double x, double y, double wid, double hei) : base(x, y, wid, hei) { }
 
         public override void Draw()
         {
