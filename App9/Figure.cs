@@ -10,7 +10,6 @@ namespace App9
     {
         public abstract void Draw();
         public bool MoveTo(double deltax, double deltay);
-        public bool Scale(double deltax, double deltay);
     }
 
     internal abstract class SimpleFigure : Ifigurable
@@ -43,22 +42,6 @@ namespace App9
             return false;
         }
 
-        public bool Scale(double deltax, double deltay)
-        {
-            double pBWidth = Init.picturebox.Width;
-            double pBHeight = Init.picturebox.Height;
-
-            if (_width + deltax >= 0 && _width + deltax <= pBWidth && _height + deltay >= 0 && _height + deltay <= pBHeight)
-            {
-                _width += deltax;
-                _height += deltay;
-
-                return true;
-            }
-
-            return false;
-        }
-
         public double X { set { _x = value >= 0 ? value : 0; } get => _x; }
         public double Y { set { _y = value >= 0 ? value : 0; } get => _y; }
         public double Width { set { _width = value >= 0 ? value : 1; } get => _width; }
@@ -67,6 +50,8 @@ namespace App9
 
     internal class Figure : SimpleFigure
     {
+
+
         public Figure(double x, double y, double wid, double hei) : base(x, y, wid, hei) { }
 
         public override void Draw()
