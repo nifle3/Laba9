@@ -42,6 +42,7 @@
             this.Console.Name = "Console";
             this.Console.Size = new System.Drawing.Size(563, 23);
             this.Console.TabIndex = 0;
+            this.Console.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Console_KeyDown);
             // 
             // History
             // 

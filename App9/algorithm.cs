@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +12,13 @@ namespace App9
         static Stack<Operator> oper = new Stack<Operator>();
         static Queue<Object> inject= new Queue<Object>();
 
-        static bool InToPolandп(string inString)
+        public static bool InToPoland(string inString)
         {
             Operator? mainOp = OperatorContainer.FindOperator(char.ToUpper(inString[0]));
-            
+
             if (mainOp == null)
                 return false;
-            
+
             oper.Push(mainOp);
 
             inString = inString.TrimStart();
@@ -43,9 +42,24 @@ namespace App9
                     inject.Enqueue(new Operand(dnumber));
                 }
 
+                else if (!char.IsDigit(inString[i]) && inString[i] != ')' && inString[i] != '(' && inString[i] != ',')
+                {
+                    string name = inString[i].ToString();
+
+                    for (int j = 0; inString[j] != ' ' && inString[j] != ')' && inString[j] != ','; j++)
+                    {
+                        if (j > 100)
+                            break;
+
+                        name += inString[j].ToString();
+                    }
+
+                    inject.Enqueue(new Operand(name));
+                }
+
                 else if (inString[i] == ' ')
                 {
-
+                    continue;
                 }
 
                 else if (OperatorContainer.FindOperator(inString[i]) == null)
