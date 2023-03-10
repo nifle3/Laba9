@@ -26,7 +26,7 @@ namespace App9
                 {
                     if (fg.Name == op1.ToString())
                     {
-                        fg.MoveTo((double)op2.value, (double)op3.values);
+                        fg.MoveTo((double)op2.value, (double)op3.value);
                     }
                 }
 
@@ -54,7 +54,7 @@ namespace App9
         {
             foreach( Operator op in AllOperator)
             {
-                if (op.oper == s)
+                if (op.oper == s.)
                     return op;
             }
 
