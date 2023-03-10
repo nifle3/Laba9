@@ -19,13 +19,17 @@ namespace App9
         {
             if (e.KeyCode == Keys.Enter && Console.Text != "")
             {
-                if (Console.Text == "cls") 
+                if (Console.Text.Trim() == "cls")
+                {
+                    Init.picturebox.Image = null;
+                    figures.Clear();
                     History.Items.Clear();
+                }
 
                 else if (Algorithm.InToPoland(Console.Text) && Algorithm.FromTo())
-                        History.Items.Add(Console.Text + "  TRUE");
+                    History.Items.Add(Console.Text + "  TRUE");
 
-                else    
+                else
                     History.Items.Add(Console.Text + "  FALSE");
 
                 Console.Text = String.Empty;
