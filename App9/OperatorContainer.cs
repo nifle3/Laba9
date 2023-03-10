@@ -77,6 +77,7 @@ namespace App9
             {
                 Graphics g = Graphics.FromImage(Init.bitmap);
                 g.Clear(Color.White);
+                Init.picturebox.Image = null;
 
                 Figure? ForDelete = null;
 
