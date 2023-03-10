@@ -78,15 +78,21 @@ namespace App9
                 Graphics g = Graphics.FromImage(Init.bitmap);
                 g.Clear(Color.White);
 
+                Figure? ForDelete = null;
+
+                for(int i =0; i < Form1.figures.Count; i++)
+                {
+                    if (Form1.figures[i].Name == op1.ToString())
+                        ForDelete = Form1.figures[i];
+                }
+
+                if (ForDelete == null)
+                    return false;
+
+                Form1.figures.Remove(ForDelete);
+
                 foreach (Figure fg in Form1.figures)
                 {
-                    if (fg.Name == op1.ToString())
-                    {
-                        Form1.figures.Remove(fg);
-
-                        continue;
-                    }
-
                     fg.Draw();
                 }
 

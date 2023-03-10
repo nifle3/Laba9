@@ -94,6 +94,7 @@ namespace App9
 
                         inject.Enqueue(oper.Pop());
                     }
+                    break;
                 }
 
                 else
