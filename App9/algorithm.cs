@@ -12,25 +12,28 @@ namespace App9
         static Stack<Operator> oper = new Stack<Operator>();
         static Queue<Object> inject= new Queue<Object>();
 
-        public static bool InToPoland(string inString)
+        public static bool InToPoland(string inString, ComboBox cb)
         {
             Operator? mainOp = OperatorContainer.FindOperator(char.ToUpper(inString[0]));
 
-            if (mainOp == null)
+            if (mainOp is null)
+                return false;
+
+            else if (!(mainOp.oper == 'O' || mainOp.oper == 'M' || mainOp.oper == 'D'))
                 return false;
 
             oper.Push(mainOp);
 
-            inString = inString.TrimStart();
+            inString = inString.TrimStart(mainOp.oper);
 
-            for (int i =0; i < inString.Length; i++)
+            for (int i = 0; i < inString.Length; i++)
             {
                 if (char.IsDigit(inString[i]))
                 {
                     string number = inString[i].ToString();
                     int jt = i;
 
-                    for (int j = i; char.IsDigit(inString[j]) || inString[j] == '.'; j++)
+                    for (int j = i + 1; char.IsDigit(inString[j]) || inString[j] == '.'; j++)
                     {
                         number += inString[j].ToString();
                         jt = j;
@@ -42,18 +45,21 @@ namespace App9
                     inject.Enqueue(new Operand(dnumber));
                 }
 
-                else if (!char.IsDigit(inString[i]) && inString[i] != ')' && inString[i] != '(' && inString[i] != ',')
+                else if (!char.IsDigit(inString[i]) && inString[i] != ')' && inString[i] != '(' && inString[i] != ',' && inString[i] != ' ')
                 {
                     string name = inString[i].ToString();
 
-                    for (int j = 0; inString[j] != ' ' && inString[j] != ')' && inString[j] != ','; j++)
+                    int jt = i;
+
+                    for (int j = i + 1; inString[j] != ' ' && inString[j] != ')' && inString[j] != ','; j++)
                     {
                         if (j > 100)
                             break;
 
                         name += inString[j].ToString();
+                        jt = j;
                     }
-
+                    i = jt;
                     inject.Enqueue(new Operand(name));
                 }
 
@@ -63,9 +69,8 @@ namespace App9
                 }
 
                 else if (OperatorContainer.FindOperator(inString[i]) == null)
-                {
                     return false;
-                }
+
 
                 else if (inString[i] == '(')
                 {
@@ -79,35 +84,45 @@ namespace App9
 
                 else if (inString[i] == ')')
                 {
-                    for (int k = 0; i < oper.Count; k++)
+                    for (int k = oper.Count; k > 0; k++)
                     {
-                        if (oper.Peek().oper != ')')
-                            inject.Enqueue(oper.Pop());
+                        if (oper.Peek().oper == '(')
+                        {
+                            oper.Pop();
+                            break;
+                        }
+
+                        inject.Enqueue(oper.Pop());
                     }
                 }
 
                 else
                     return false;
             }
-             
+
+
             for (int i = 0; i < oper.Count; i++)
+            {
                 inject.Enqueue(oper.Pop());
+            }
 
             return true;
         }
 
-        public static bool FromTo()
+        public static bool FromTo(ComboBox cb)
         {
             Stack<Operand> stc = new Stack<Operand>();
 
             if (inject.Count == 0)
                 return false;
 
-            for (int i =0; i < inject.Count; i++)
+            int length = inject.Count;
+
+            for (int i =0; i < length; i++)
             {
-                if (inject.Peek() is Operand a)
+                if (inject.Peek() is Operand aOperand)
                 {
-                    stc.Push(a);
+                    stc.Push(aOperand);
                     inject.Dequeue();
 
                     continue;
@@ -120,6 +135,7 @@ namespace App9
 
                 if (op.oper == ',')
                 {
+                    
                 }
 
                 else if (op.oper == 'O' && stc.Count == 5) // hieght, width, y, z, name
@@ -129,24 +145,36 @@ namespace App9
 
                     if (!op.five(stc.Pop(), stc.Pop(), stc.Pop(), stc.Pop(), stc.Pop()))
                         return false;
+
+                    break;
                 }
 
                 else if (op.oper == 'M' && stc.Count == 3) //dy, dz, name 
                 {
+                    //delete
+                    cb.Items.Add('M');
+
                     if (op.trinary is null)
                         return false;
 
                     if (!op.trinary(stc.Pop(), stc.Pop(), stc.Pop()))
                         return false;
+
+                    break;
                 }
 
                 else if (op.oper == 'D' && stc.Count == 1) // name
                 {
+                    //delete
+                    cb.Items.Add('D');
+
                     if (op.unary == null)
                         return false;
 
                     if (!op.unary(stc.Pop()))
                         return false;
+
+                    break;
                 }
 
                 else

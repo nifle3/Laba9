@@ -16,17 +16,18 @@ namespace App9
             {
                 double hei, wid, y, x;
 
-                if (double.TryParse(op1.ToString(), out hei))
+                if (!double.TryParse(op1.ToString(), out hei))
                     return false;
 
-                if (double.TryParse(op2.ToString(), out wid))
+                if (!double.TryParse(op2.ToString(), out wid))
                     return false;
 
-                if (double.TryParse(op3.ToString(), out y))
+                if (!double.TryParse(op3.ToString(), out y))
                     return false;
 
-                if (double.TryParse(op4.ToString(), out x))
+                if (!double.TryParse(op4.ToString(), out x))
                     return false;
+
 
                 Figure fig = new Figure(hei, wid, y,x, op5.ToString());
                 fig.Draw();

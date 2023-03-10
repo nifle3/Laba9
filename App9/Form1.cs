@@ -19,15 +19,11 @@ namespace App9
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (Algorithm.InToPoland(Console.Text) && Algorithm.FromTo())
-                {
-                    History.Items.Add(Console.Text + "  TRUE");
-                }
+                if (Algorithm.InToPoland(Console.Text, History) && Algorithm.FromTo(History))
+                        History.Items.Add(Console.Text + "  TRUE");
 
                 else    
-                {
                     History.Items.Add(Console.Text + "  FALSE");
-                }
             }
         }
     }
