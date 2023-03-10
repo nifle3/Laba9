@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.DirectoryServices;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +10,7 @@ namespace App9
     {
         public delegate void EmptyOp();
         public delegate void Unary(Operand oper);
-        public delegate void Five(Operand oper, Operand oper1, Operand op2, Operand op3, Operand op4, Operand op5);
+        public delegate void Four(Operand oper, Operand oper1, Operand op2, Operand op3, Operand op4);
         public delegate void Trinary(Operand op1, Operand op2, Operand op3);
     }
 
@@ -21,7 +20,7 @@ namespace App9
 
         public EmptyOp? ep = null;
         public Unary? unary = null;
-        public Five? five = null;
+        public Four? five = null;
         public Trinary? trinary = null;
 
 
@@ -31,8 +30,11 @@ namespace App9
         public Operator(Unary unar, char ch) : this(ch) =>
             unary += unar;
 
-        public Operator(Five fiv, char ch) : this(ch) =>
+        public Operator(Four fiv, char ch) : this(ch) =>
             five = fiv;
+
+        public Operator(Trinary tri, char ch) : this(ch) =>
+            trinary = tri;
 
         public Operator(): base() { }
     }

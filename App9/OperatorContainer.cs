@@ -12,9 +12,39 @@ namespace App9
         
         static OperatorContainer()
         {
-            AllOperator.Add( new Operator('O'));
-            AllOperator.Add(new Operator('M'));
-            AllOperator.Add(new Operator('D'));
+            AllOperator.Add(new Operator((Operand op1, Operand op2, Operand op3, Operand op4, Operand op5) =>
+            {
+                Figure fig = new Figure((double)op1.value,(double)op2.value, (double)op3.value,(double)op4.value, op5.ToString());
+                fig.Draw();
+
+                Form1.figures.Add(fig);
+            },'O'));
+
+            AllOperator.Add(new Operator((Operand op1, Operand op2, Operand op3) =>
+            {
+                foreach (Figure fg in Form1.figures)
+                {
+                    if (fg.Name == op1.ToString())
+                    {
+                        fg.MoveTo((double)op2.value, (double)op3.values);
+                    }
+                }
+
+
+            },'M'));
+
+            AllOperator.Add(new Operator((Operand op1) =>
+            {
+                foreach (Figure fg in Form1.figures)
+                {
+                    if (fg.Name == op1.ToString())
+                    {
+                        Form1.figures.Remove(fg);
+                    }
+                }
+
+            },'D'));
+
             AllOperator.Add(new Operator(','));
             AllOperator.Add(new Operator('('));
             AllOperator.Add(new Operator(')'));

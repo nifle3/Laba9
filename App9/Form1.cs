@@ -4,7 +4,7 @@ namespace App9
 {
     public partial class Form1 : Form
     {
-        private List<Ifigurable> _figure = new List<Ifigurable>();
+        internal static List<Ifigurable> figures = new List<Ifigurable>();
 
         public Form1()
         {

@@ -15,5 +15,7 @@ namespace App9
         {
             value = NewValue;
         }
+
+        public override string ToString() => value.ToString();
     }
 }
