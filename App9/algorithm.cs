@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace App9
 
         static bool InToPolandп(string inString)
         {
-            Operator? mainOp = OperatorContainer.FindOperator(inString[0]);
+            Operator? mainOp = OperatorContainer.FindOperator(char.ToUpper(inString[0]));
             
             if (mainOp == null)
                 return false;
@@ -103,8 +104,43 @@ namespace App9
                 if (op is null)
                     return false;
 
+                if (op.oper == ',')
+                {
+                }
 
+                else if (op.oper == 'O' && stc.Count == 5) // hieght, width, y, z, name
+                {
+                    if (op.five is null)
+                        return false;
+
+                    if (!op.five(stc.Pop(), stc.Pop(), stc.Pop(), stc.Pop(), stc.Pop()))
+                        return false;
+                }
+
+                else if (op.oper == 'M' && stc.Count == 3) //dy, dz, name 
+                {
+                    if (op.trinary is null)
+                        return false;
+
+                    if (!op.trinary(stc.Pop(), stc.Pop(), stc.Pop()))
+                        return false;
+                }
+
+                else if (op.oper == 'D' && stc.Count == 1) // name
+                {
+                    if (op.unary == null)
+                        return false;
+
+                    if (!op.unary(stc.Pop()))
+                        return false;
+                }
+
+                else
+                    return false;
             }
+
+            oper = new Stack<Operator>();
+            inject = new Queue<Object>();
 
             return true;
         }

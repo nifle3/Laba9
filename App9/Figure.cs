@@ -22,11 +22,11 @@ namespace App9
         public string Name { set; get; }
 
         public SimpleFigure(double x, double y, double width, double height, string name) =>
-           (Width, Height, X, Y, name) = (width, height, x, y, Name);
+           (name, X, Y, Width, Height) = (Name, x, y, width, height);
 
         public abstract void Draw();
 
-        public bool MoveTo(double deltax, double deltay)
+        public bool MoveTo(double deltay, double deltax)
         {
             double sidex = _x + _width;
             double sidey = _y + _height;
@@ -52,7 +52,7 @@ namespace App9
 
     internal class Figure : SimpleFigure
     {
-        public Figure(double x, double y, double wid, double hei, string name) : base(x, y, wid, hei, name) { }
+        public Figure(double hei, double wid, double y, double x, string name) : base(x, y, wid, hei, name) { }
 
         public override void Draw()
         {

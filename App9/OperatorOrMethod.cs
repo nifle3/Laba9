@@ -9,9 +9,9 @@ namespace App9
     internal class OperatorMethod
     {
         public delegate void EmptyOp();
-        public delegate void Unary(Operand oper);
-        public delegate void Four(Operand oper, Operand oper1, Operand op2, Operand op3, Operand op4);
-        public delegate void Trinary(Operand op1, Operand op2, Operand op3);
+        public delegate bool Unary(Operand oper);
+        public delegate bool Four(Operand oper, Operand oper1, Operand op2, Operand op3, Operand op4);
+        public delegate bool Trinary(Operand op1, Operand op2, Operand op3);
     }
 
     internal class Operator : OperatorMethod
