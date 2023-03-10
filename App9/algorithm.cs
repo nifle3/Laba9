@@ -12,7 +12,7 @@ namespace App9
         static Stack<Operator> oper = new Stack<Operator>();
         static Queue<Object> inject= new Queue<Object>();
 
-        public static bool InToPoland(string inString, ComboBox cb)
+        public static bool InToPoland(string inString)
         {
             Operator? mainOp = OperatorContainer.FindOperator(char.ToUpper(inString[0]));
 
@@ -109,7 +109,7 @@ namespace App9
             return true;
         }
 
-        public static bool FromTo(ComboBox cb)
+        public static bool FromTo()
         {
             Stack<Operand> stc = new Stack<Operand>();
 
@@ -138,7 +138,7 @@ namespace App9
                     
                 }
 
-                else if (op.oper == 'O' && stc.Count == 5) // hieght, width, y, z, name
+                else if (op.oper == 'O' && stc.Count == 5)
                 {
                     if (op.five is null)
                         return false;
@@ -149,11 +149,8 @@ namespace App9
                     break;
                 }
 
-                else if (op.oper == 'M' && stc.Count == 3) //dy, dz, name 
+                else if (op.oper == 'M' && stc.Count == 3) 
                 {
-                    //delete
-                    cb.Items.Add('M');
-
                     if (op.trinary is null)
                         return false;
 
@@ -163,11 +160,8 @@ namespace App9
                     break;
                 }
 
-                else if (op.oper == 'D' && stc.Count == 1) // name
+                else if (op.oper == 'D' && stc.Count == 1) 
                 {
-                    //delete
-                    cb.Items.Add('D');
-
                     if (op.unary == null)
                         return false;
 

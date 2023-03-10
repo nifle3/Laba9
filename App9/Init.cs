@@ -12,6 +12,5 @@ namespace App9
         public static Bitmap bitmap;
         public static Pen pen;
         public static PictureBox picturebox;
-
     }
 }

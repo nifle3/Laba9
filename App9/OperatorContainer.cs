@@ -28,6 +28,14 @@ namespace App9
                 if (!double.TryParse(op4.ToString(), out x))
                     return false;
 
+                double width = Init.bitmap.Width;
+                double height = Init.bitmap.Height;
+
+                if (!(x + wid <= width && x >= 0))
+                    return false;
+
+                if (!(y + hei <= height && x >= 0))
+                    return false;
 
                 Figure fig = new Figure(hei, wid, y,x, op5.ToString());
                 fig.Draw();
@@ -41,26 +49,28 @@ namespace App9
             {
                 double dy, dz;
 
-                if (double.TryParse(op1.ToString(), out dy))
+                if (!double.TryParse(op1.ToString(), out dy))
                     return false;
 
-                if (double.TryParse(op2.ToString(), out dz))
+                if (!double.TryParse(op2.ToString(), out dz))
                     return false;
 
                 Graphics g = Graphics.FromImage(Init.bitmap);
                 g.Clear(Color.White);
 
+                bool outWindow = true;
+
                 foreach (Figure fg in Form1.figures)
                 {
                     if (fg.Name == op3.ToString())
                     {
-                        fg.MoveTo(dy, dz);
+                        outWindow = fg.MoveTo(dy, dz);
                     }
 
                     fg.Draw();  
                 }
 
-                return true;
+                return outWindow;
             },'M'));
 
             AllOperator.Add(new Operator((Operand op1) =>

@@ -17,13 +17,18 @@ namespace App9
 
         private void Console_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && Console.Text != "")
             {
-                if (Algorithm.InToPoland(Console.Text, History) && Algorithm.FromTo(History))
+                if (Console.Text == "cls") 
+                    History.Items.Clear();
+
+                else if (Algorithm.InToPoland(Console.Text) && Algorithm.FromTo())
                         History.Items.Add(Console.Text + "  TRUE");
 
                 else    
                     History.Items.Add(Console.Text + "  FALSE");
+
+                Console.Text = String.Empty;
             }
         }
     }

@@ -18,11 +18,9 @@ namespace App9
         private double _y;
         private double _width;
         private double _height;
-        
-        public string Name { set; get; }
 
-        public SimpleFigure(double x, double y, double width, double height, string name) =>
-           (name, X, Y, Width, Height) = (Name, x, y, width, height);
+        public SimpleFigure(double x, double y, double width, double height) =>
+           (X, Y, Width, Height) = (x, y, width, height);
 
         public abstract void Draw();
 
@@ -52,7 +50,10 @@ namespace App9
 
     internal class Figure : SimpleFigure
     {
-        public Figure(double hei, double wid, double y, double x, string name) : base(x, y, wid, hei, name) { }
+        public string Name { set; get; }
+
+        public Figure(double hei, double wid, double y, double x, string name) : base(x, y, wid, hei) =>
+            Name = name;
 
         public override void Draw()
         {
